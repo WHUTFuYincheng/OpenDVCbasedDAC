@@ -208,6 +208,8 @@ private:  //  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
   double pow_1;
 };
 
+bool process_highMA(int frame);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #endif

@@ -883,23 +883,28 @@ void Encoder::encodeDac(int* source, bool*dacParity)
 #if ISCHANGE	
 	double overlap_input = OVERLAP;							//set overlap interval
 	if (_Postion <= PSOTION)
-		overlap_input = 0.0;
+		overlap_input = ACOVERLAP;
 #else
 	double overlap_input = OVERLAP;							//set overlap interval
 #endif // ISCHANGE	
-#if ADAPTIVEDAC
-	if (_FrameNo == 35 || _FrameNo == 37 || _FrameNo == 47)
-		overlap_input = 0.0;
-#endif // ADAPTIVEDAC	
-
+#if HIGHMOTACT
+	if (process_highMA(_FrameNo))
+		overlap_input = ACOVERLAP;
+#endif // HIGHMOTACT
 	unsigned BufferSize = 1584;								//Set bufferSize to 1584
 	unsigned BufferCount = 1;								//Set bufferCount to 1
 	unsigned TERMINATION = 15;
 	unsigned char * data = new unsigned char[1584];
 	unsigned nb, bytes = 0, crc = 0;						 // compute CRC (cyclic check) of file
+	Static_Bit_Model dm;										//Generate the object dm: that is, the data models data schema, which stores the probability of P(X=0), with the default of 0.5
+	Arithmetic_Codec encoder(BufferSize);            // set encoder buffer
 	
 	if (_xNum == _p0Num)
-		probability = 0.999;
+	{
+		Write_to_file_all0(dacParity);				//all bitplane is all 0, so we can jump it
+		delete[] data;
+		return;
+	}
 	else
 		probability = _p0Num / (double)_xNum;
 
@@ -910,11 +915,9 @@ void Encoder::encodeDac(int* source, bool*dacParity)
 	Adaptive_Bit_Model abm;
 	double tempOverlapInput = overlap_input;		//In order to keep the original overlap value unchanged while TERMINATION
 #else
-	Static_Bit_Model dm;										//Generate the object dm: that is, the data models data schema, which stores the probability of P(X=0), with the default of 0.5
 	dm.set_probability_0(probability);							//Set the probability of P(X=0) in dm
 
 #endif // ISADAPTIVE
-	Arithmetic_Codec encoder(BufferSize);            // set encoder buffer
 	do {
 		nb = (bytes < BufferSize ? bytes : BufferSize);			//Each encoding length nb takes the size of bufferSize or when the bytes are not enough
 		//if (fread(data, 1, nb, data_file) != nb) Error(R_MSG);   // read file data
@@ -939,9 +942,9 @@ void Encoder::encodeDac(int* source, bool*dacParity)
 			if (p == (nb - TERMINATION))				//When nb reaches the terminator, set the probability to the original probability
 			{
 #if ISADAPTIVE
-				tempOverlapInput = 0.0;
+				tempOverlapInput = ACOVERLAP;
 #else
-				encoder.setoverlap(0.0, dm);
+				encoder.setoverlap(ACOVERLAP, dm);
 #endif // ISADAPTIVE
 			}
 #if ISADAPTIVE
@@ -957,4 +960,8 @@ void Encoder::encodeDac(int* source, bool*dacParity)
 
 
 	delete[] data;
+}
+void Encoder::Write_to_file_all0(bool* dacParity)
+{
+	dacParity[0] = (bool)0x1;
 }

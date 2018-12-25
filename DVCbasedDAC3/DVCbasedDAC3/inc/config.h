@@ -21,6 +21,7 @@
 #define SI_REFINEMENT           1
 #define ISADAPTIVE				0
 #define HEAPSORT				0
+#define ACOVERLAP				0.0
 #define CRC						1					//Whether CRC validation is used
 #if CRC
 #define CRCLENGTH				1584
@@ -28,10 +29,37 @@
 #endif // CRC
 #define MYNODECOUNT				2048				//Use to set the size of nodecount for decoding
 /*==============================The following parameters are adjusted for different video sequences===========*/
-#define ISCHANGE				1					//Whether overlap is variable
+#define ISCHANGE				0					//Whether overlap is variable
 #define PSOTION					2					//The size of overlap change, and the last X+1 bit is AC algorithm
-#define ADAPTIVEDAC				0
-#define OVERLAP					0.025				//For different sequence, overlap is different!!!
+#define OVERLAP					0.02				//For different sequence, overlap is different!!!
+#define HIGHMOTACT				1					//For high motion active (like soccer sequence)
+
+/* For test sequence
+
+Hall Monitor 
+ ISCHANGE				0					
+ PSOTION				2					
+ OVERLAP				0.08				
+ HIGHMOTACT				0
+
+ Coast Guard
+ ISCHANGE				0
+ PSOTION				2
+ OVERLAP				0.10
+ HIGHMOTACT				0
+
+ Foreman
+ ISCHANGE				1
+ PSOTION				2
+ OVERLAP				0.025
+ HIGHMOTACT				0
+
+ Soccer
+ ISCHANGE				0
+ PSOTION				2
+ OVERLAP				0.02
+ HIGHMOTACT				1
+*/
 
 // Macros for encoder only
 #ifdef ENCODER

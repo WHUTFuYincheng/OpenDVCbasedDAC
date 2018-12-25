@@ -46,7 +46,7 @@ private:
   void setupLdpcaSource(int* frame, int* source, int offsetX, int offsetY, int bitPosition);
   void setupDACSource(int* frame, int*source, int offsetX, int offsetY, int bitPosition);		//Dac
   void encodeDac(int* source, bool*dacParity);
-
+  void Write_to_file_all0(bool* dacParity);
 
   void computeCRC(int* data, const int length, unsigned char* crc);
 

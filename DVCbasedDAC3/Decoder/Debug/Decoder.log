@@ -3,15 +3,17 @@
   transform.cpp
   corrModel.cpp
   decoder.cpp
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(886): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1003): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1031): warning C4018: “<”: 有符号/无符号不匹配
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1047): warning C4018: “<”: 有符号/无符号不匹配
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1056): warning C4018: “<”: 有符号/无符号不匹配
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1076): warning C4018: “<”: 有符号/无符号不匹配
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1104): warning C4018: “<”: 有符号/无符号不匹配
-g:\opensourcecode\dvcbaseddac3\decoder\src\decoder.cpp(1121): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(886): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1003): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1031): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1047): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1058): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1062): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1072): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1092): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1120): warning C4018: “<”: 有符号/无符号不匹配
+g:\opensourcecode\opendvcbaseddac\dvcbaseddac3\decoder\src\decoder.cpp(1137): warning C4018: “<”: 有符号/无符号不匹配
   main.cpp
   sideInformation.cpp
   正在生成代码...
-  Decoder.vcxproj -> G:\OpenSourceCode\DVCbasedDAC3\Debug\Decoder.exe
+  Decoder.vcxproj -> G:\OpenSourceCode\OpenDVCbasedDAC\DVCbasedDAC3\Debug\Decoder.exe

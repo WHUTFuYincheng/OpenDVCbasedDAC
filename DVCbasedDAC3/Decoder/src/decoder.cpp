@@ -706,7 +706,7 @@ double Decoder::decodingDAC(int* iQuantDCT, int* iDCT, int* iDecoded, int x, int
   int iCurrPos;
   int* iDecodedTmp;
   double* dLLR;
-  double *dDacParity;					//用来存放解码读取数据
+  double *dDacParity;					//Used to store decoded read data
   double* dDacDecoded;
   double* dSource;
   double dRate,dTotalRate;
@@ -952,21 +952,21 @@ int getSymbol(int len, int& curr_pos, char* buffer)
 
 void Decoder::dacDecoder(double* dLLR, double* dParity, double *decoded, double *rate, double *numErrors, unsigned char crccode, int numcode)
 {
-	double* parity = dParity + 32;			//Parity: coding data (skipping length)
+	double* parity = dParity + 24;			//Parity: coding data (skipping length)
 	unsigned int encoderLen = 0;				//encoding length
 	unsigned int probLen = 0;				//The length of the storage probability									
 	double probability;
 #if CRC
-	unsigned char *crc=new unsigned char[1584 / CRCLENGTH+8];
+	unsigned char *crc = new unsigned char[1584 / CRCLENGTH + 8];
 #else
 	unsigned char *crc = new unsigned char[1];
 #endif
 
 #if ISADAPTIVE
-	probLen = 16;
+	probLen = 12;
 #else
-	probLen = 32;
-	_p0Num = getLengthOrNum(dParity + 16);		//Get the number of p0's
+	probLen = 24;
+	_p0Num = getLengthOrNum(dParity + 12);		//Get the number of p0's
 	if (1584 == _p0Num)
 		probability = 0.999;
 	else
@@ -990,15 +990,15 @@ void Decoder::dacDecoder(double* dLLR, double* dParity, double *decoded, double 
 	
 	if (_Postion <= PSOTION)
 	{
-		overlap_input = 0.0;
+		overlap_input = ACOVERLAP;
 	}
 #else
 	double overlap_input = OVERLAP;
 #endif // ISCHANGE
-#if ADAPTIVEDAC
-	if (_FrameNo == 35 || _FrameNo == 37 || _FrameNo == 47)
-		overlap_input = 0.0;
-#endif // ADAPTIVEDAC	
+#if HIGHMOTACT
+	if (process_highMA(_FrameNo))
+		overlap_input = ACOVERLAP;
+#endif // HIGHMOTACT
 	unsigned nodecount = MYNODECOUNT;							//2048
 	max_node = (int)pow(2.0, overlap_count)*nodecount*1.5;//This can have an impact on decoding performance
 	unsigned BufferSize = 1584;
@@ -1052,6 +1052,22 @@ void Decoder::dacDecoder(double* dLLR, double* dParity, double *decoded, double 
 	double cross_probability = 0.10;										//Initialization temporarily sets the crossover probability to 0.1
 	// buffer for data file data
 	char * data = new char[BufferSize];
+	if ((int)dParity[0])
+	{
+		rate[0] = 1 / 1584.0;			//this bitplane is all 0,so we jump it
+		for (int count = 0; count < BufferSize; count++)
+		{
+			decoded[count] = 0x0;
+		}
+		for (int ilen = 0; ilen<(BufferSize + 1); ilen++)
+		{
+			free(tree[ilen]);
+		}
+		free(tree);
+		delete[] data;
+		delete[] crc;
+		return;
+	}
 
 	for (int icross = 0; icross < STEP; icross++)							//Each decoding STEP has a different crossover probability
 	{
@@ -1132,7 +1148,7 @@ unsigned int Decoder::getLengthOrNum(double *parity)
 	unsigned int len;
 	int i, temp;
 	len = 0;
-	for (i = 15; i >= 0; i--)
+	for (i = 11; i >= 0; i--)
 	{
 		temp = (int)(parity[0]);
 		if (temp)

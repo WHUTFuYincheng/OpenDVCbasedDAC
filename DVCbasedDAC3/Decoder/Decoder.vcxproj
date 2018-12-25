@@ -78,12 +78,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\DVCbasedDAC3\DAC\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;DAC.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <HeapReserveSize>
       </HeapReserveSize>
       <StackReserveSize>20971520</StackReserveSize>
+      <AdditionalLibraryDirectories>..\DVCbasedDAC3\DAC\inc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -151,7 +153,9 @@
     <ClCompile Include="src\sideInformation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\DVCbasedDAC3\DAC\inc\DAC.lib" />
+    <Library Include="..\DVCbasedDAC3\DAC\inc\DAC.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </Library>
     <Library Include="..\DVCbasedDAC3\inc\regex.lib" />
   </ItemGroup>
   <ItemGroup>
