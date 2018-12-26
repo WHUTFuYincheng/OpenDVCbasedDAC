@@ -1,2 +1,2 @@
-Decoder wz.bin rec.yuv soccer_qcif.yuv
+Decoder wz.bin rec.yuv hall_qcif.yuv
 pause

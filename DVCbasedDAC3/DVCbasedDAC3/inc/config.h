@@ -31,8 +31,8 @@
 /*==============================The following parameters are adjusted for different video sequences===========*/
 #define ISCHANGE				0					//Whether overlap is variable
 #define PSOTION					2					//The size of overlap change, and the last X+1 bit is AC algorithm
-#define OVERLAP					0.02				//For different sequence, overlap is different!!!
-#define HIGHMOTACT				1					//For high motion active (like soccer sequence)
+#define OVERLAP					0.08				//For different sequence, overlap is different!!!
+#define HIGHMOTACT				0					//For high motion active (like soccer sequence)
 
 /* For test sequence
 
